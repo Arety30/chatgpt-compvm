@@ -1,0 +1,14 @@
+[Unit]
+Description=chatgpt-compvm MCP server (disposable Ubuntu VM: monitor + click/type) via Tailscale Funnel
+After=network-online.target docker.service
+
+[Service]
+WorkingDirectory=~/chatgpt-compvm
+EnvironmentFile=~/chatgpt-compvm/.env
+ExecStartPre=-/bin/bash ~/chatgpt-compvm/ensure-up.sh
+ExecStart=~/manus-win/mcptest/bin/python ~/chatgpt-compvm/server.py
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target
